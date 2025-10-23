@@ -1,54 +1,63 @@
 # Stroke Prediction Dataset Analysis
 
 ## Overview
-This project uses the [Stroke Prediction Dataset](https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset) from Kaggle, which contains medical and demographic information about patients. The goal of the dataset is to predict whether a patient is likely to have a stroke based on features such as age, gender, BMI, smoking status, glucose level, hypertension, and heart disease.
+This project uses the [Stroke Prediction Dataset](https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset) from **Kaggle**, which contains medical and demographic information about patients. The goal is to identify key risk factors and trends associated with stroke likelihood, focusing on features such as **age**, **gender**, **BMI**, **smoking status**, **glucose level**, **hypertension**, and **heart disease**.
 
-The dataset is widely used for practicing data cleaning, exploratory data analysis (EDA), and building predictive models in the healthcare domain.
+This dataset is widely used for **data cleaning**, **exploratory data analysis (EDA)**, and **predictive modeling** in the healthcare domain.
 
 ---
 
 ## Dataset Information
 - **Source:** Kaggle  
-- **Rows:** approximately 5,100 patients  
+- **Rows:** ~5,100 patients  
 - **Columns include:**  
   - `id` – patient identifier  
   - `gender` – Male, Female, or Other  
   - `age` – age in years  
-  - `hypertension` – binary (0 = no, 1 = yes)  
-  - `heart_disease` – binary (0 = no, 1 = yes)  
+  - `hypertension` – 0 = no, 1 = yes  
+  - `heart_disease` – 0 = no, 1 = yes  
   - `ever_married` – marital status  
   - `work_type` – type of employment  
   - `Residence_type` – Urban or Rural  
-  - `avg_glucose_level` – average glucose level in blood  
+  - `avg_glucose_level` – average glucose level  
   - `bmi` – body mass index  
   - `smoking_status` – current smoking status  
-  - `stroke` – target variable (1 = patient had a stroke, 0 = did not)
+  - `stroke` – target variable (1 = stroke, 0 = no stroke)
 
 ---
 
 ## Data Cleaning
-Before exploring the data, I performed several cleaning steps:
+To prepare the dataset for analysis:
 - Replaced `"N/A"` values in the BMI column with `NULL`.  
-- Checked for and confirmed there were no duplicate patient IDs.  
-- Reviewed column ranges to identify outliers (age, BMI, glucose).  
-- Standardized categorical variables such as smoking status.  
+- Verified unique `id` values to confirm no duplicates.  
+- Reviewed and capped outliers in **age**, **BMI**, and **glucose** columns.  
+- Standardized categorical variables such as `smoking_status` for consistency.  
 
 ---
 
-## Data Exploration
-I explored the dataset to identify key patterns related to stroke prevalence. Some of the questions analyzed include:
-- What percentage of patients had a stroke?
-- Which gender experienced strokes more frequently?  
-- At what age ranges were strokes most prevalent?  
-- How many stroke patients also had hypertension or heart disease?  
-- What ranges of glucose levels and BMI were most associated with stroke cases?  
-- What percentage of stroke patients were smokers, former smokers, or never smoked?
-- Of the females who had strokes, how many had high bmi? elevated glucose levels? both? neither?
+## Exploratory Data Analysis (EDA)
+Using **SQL** for data querying and **Tableau** for visualization, I explored trends and correlations in stroke prevalence across demographic and medical factors.  
+
+Key questions explored:
+- What percentage of patients had a stroke?  
+- Which gender and age group had the highest stroke rates?  
+- How strongly are hypertension and heart disease correlated with stroke occurrence?  
+- How do glucose levels and BMI differ between stroke and non-stroke patients?  
+- How does smoking status influence stroke risk?  
 
 ---
 
-## Next Steps
-This project currently focuses on cleaning and exploring the dataset. Future work could include:
-- Feature engineering (e.g., grouping continuous variables into risk categories).  
-- Building machine learning models to predict stroke occurrence.  
-- Comparing different models (logistic regression, decision trees, random forest, etc.) for predictive accuracy.  
+## Insights and Findings
+- **Age and Health:** Stroke risk increased significantly among patients aged 60+, particularly those with both hypertension and heart disease.  
+- **Glucose Levels:** Patients with glucose levels above 200 mg/dL had notably higher stroke incidence.  
+- **BMI and Lifestyle:** Overweight individuals (BMI > 30) who were current or former smokers exhibited elevated risk factors.  
+- **Gender Distribution:** Males showed slightly higher stroke rates overall, but females had higher rates when combined with elevated BMI and glucose levels.  
+- **Comorbidity Trends:** Most stroke patients also presented at least one comorbidity (hypertension or heart disease).  
+
+---
+
+## Recommendations and Next Steps
+- Perform **feature engineering** to group continuous variables (e.g., age, glucose, BMI) into risk categories.  
+- Build predictive models (e.g., **logistic regression**, **decision trees**, **random forest**) to estimate stroke probability.  
+- Explore **feature importance** and **model interpretability** to identify actionable healthcare insights.  
+- Expand Tableau dashboards to include **interactive filters** by demographic and health attributes.  
