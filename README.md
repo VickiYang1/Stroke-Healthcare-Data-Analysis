@@ -1,63 +1,116 @@
 # Stroke Prediction Dataset Analysis
 
 ## Overview
-This project uses the [Stroke Prediction Dataset](https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset) from **Kaggle**, which contains medical and demographic information about patients. The goal is to identify key risk factors and trends associated with stroke likelihood, focusing on features such as **age**, **gender**, **BMI**, **smoking status**, **glucose level**, **hypertension**, and **heart disease**.
+This project uses the Stroke Prediction Dataset from Kaggle, containing medical and demographic patient information. The goal is to explore stroke risk factors and build a machine learning model that predicts whether an individual is at risk of experiencing a stroke.
 
-This dataset is widely used for **data cleaning**, **exploratory data analysis (EDA)**, and **predictive modeling** in the healthcare domain.
+This project demonstrates:
+- SQL for data cleaning and data exploration  
+- Python for predictive modeling and evaluation  
+- Tableau for interactive visualization  
 
 ---
 
 ## Dataset Information
-- **Source:** Kaggle  
-- **Rows:** ~5,100 patients  
-- **Columns include:**  
-  - `id` – patient identifier  
-  - `gender` – Male, Female, or Other  
-  - `age` – age in years  
-  - `hypertension` – 0 = no, 1 = yes  
-  - `heart_disease` – 0 = no, 1 = yes  
-  - `ever_married` – marital status  
-  - `work_type` – type of employment  
-  - `Residence_type` – Urban or Rural  
-  - `avg_glucose_level` – average glucose level  
-  - `bmi` – body mass index  
-  - `smoking_status` – current smoking status  
-  - `stroke` – target variable (1 = stroke, 0 = no stroke)
+- Rows: ~5,100 patients  
+- Features include: age, gender, BMI, smoking status, hypertension, heart disease, work type, residence type, and glucose levels  
+- Target variable: `stroke` (1 = stroke, 0 = no stroke)
 
 ---
 
 ## Data Cleaning
-To prepare the dataset for analysis:
-- Replaced `"N/A"` values in the BMI column with `NULL`.  
-- Verified unique `id` values to confirm no duplicates.  
-- Reviewed and capped outliers in **age**, **BMI**, and **glucose** columns.  
-- Standardized categorical variables such as `smoking_status` for consistency.  
+- Removed unnecessary columns such as `id`
+- Handled missing BMI values using median imputation
+- Encoded categorical variables using one-hot encoding
+- Reviewed outliers in continuous parameter distributions
 
 ---
 
 ## Exploratory Data Analysis (EDA)
-Using **SQL** for data querying and **Tableau** for visualization, I explored trends and correlations in stroke prevalence across demographic and medical factors.  
+EDA was performed using SQL and Tableau dashboards to investigate health and lifestyle risk factors.
 
-Key questions explored:
-- What percentage of patients had a stroke?  
-- Which gender and age group had the highest stroke rates?  
-- How strongly are hypertension and heart disease correlated with stroke occurrence?  
-- How do glucose levels and BMI differ between stroke and non-stroke patients?  
-- How does smoking status influence stroke risk?  
+Questions explored:
+- What percentage of patients suffered a stroke?
+- How does age affect stroke likelihood?
+- Do smoking habits influence stroke risk?
+- How do glucose levels and BMI differ for stroke patients?
+- What role do hypertension and heart disease play?
 
----
-
-## Insights and Findings
-- **Age and Health:** Stroke risk increased significantly among patients aged 60+, particularly those with both hypertension and heart disease.  
-- **Glucose Levels:** Patients with glucose levels above 200 mg/dL had notably higher stroke incidence.  
-- **BMI and Lifestyle:** Overweight individuals (BMI > 30) who were current or former smokers exhibited elevated risk factors.  
-- **Gender Distribution:** Males showed slightly higher stroke rates overall, but females had higher rates when combined with elevated BMI and glucose levels.  
-- **Comorbidity Trends:** Most stroke patients also presented at least one comorbidity (hypertension or heart disease).  
+Key EDA findings:
+- Stroke likelihood increases significantly after age 60
+- Hypertension and heart disease are common among stroke-positive patients
+- Glucose levels above 200 mg/dL are strongly associated with stroke risk
+- Higher BMI combined with smoking history further increases risk
+- Many stroke patients exhibit multiple health risk factors
 
 ---
 
-## Recommendations and Next Steps
-- Perform **feature engineering** to group continuous variables (e.g., age, glucose, BMI) into risk categories.  
-- Build predictive models (e.g., **logistic regression**, **decision trees**, **random forest**) to estimate stroke probability.  
-- Explore **feature importance** and **model interpretability** to identify actionable healthcare insights.  
-- Expand Tableau dashboards to include **interactive filters** by demographic and health attributes.  
+## Machine Learning Model
+
+### Objective
+Predict if a patient is at high risk of stroke using medical and demographic data.
+
+### Algorithms Tested
+| Model | Purpose |
+|------|---------|
+| Logistic Regression | Baseline model |
+| Random Forest | Handles non-linear decision boundaries |
+| Gradient Boosting | Additional comparison method |
+| Random Forest + SMOTE | Best-performing model |
+
+---
+
+### Addressing Class Imbalance
+Only around 5% of the dataset represents stroke cases.  
+Initial models often predicted that no patient would have a stroke:
+
+- High accuracy but recall = 0  
+- This is unacceptable in healthcare contexts
+
+To correct this, SMOTE (Synthetic Minority Oversampling Technique) was applied to oversample positive stroke cases during training. This allowed the model to learn from a more balanced representation of stroke and non-stroke patients.
+
+---
+
+## Model Evaluation Visualizations
+Generated in Python using Matplotlib and Seaborn:
+
+- Confusion Matrix
+- ROC Curve
+- Precision / Recall / F1 Comparison
+- Feature Importance Bar Chart
+
+Important features for stroke prediction include:
+- Age
+- Average glucose level
+- Hypertension
+- BMI
+
+---
+
+## Project Files
+| File Name | Description |
+|----------|-------------|
+| `predictive-analysis.py` | Model training, SMOTE oversampling, performance evaluation, exports CSVs |
+| `model_visualizations.py` | Standalone visualization script for model performance |
+| `model_results.csv` | Predictions and probability scores for test dataset |
+| `feature_importance.csv` | Ranked feature importance values |
+| Tableau workbook (optional) | Interactive dashboards for exploratory analysis |
+
+---
+
+## Future Improvements
+- Deploy the model as a Streamlit or Flask web application for real-time prediction
+- Integrate with Tableau using TabPy for live model inference
+- Apply hyperparameter tuning to further improve performance
+- Use explainability frameworks such as SHAP for deeper model interpretation
+
+---
+
+## Conclusion
+This project showcases a complete end-to-end data science pipeline in a healthcare setting, including:
+
+1. Data extraction and cleaning  
+2. Exploratory and statistical analysis  
+3. Predictive modeling and class imbalance handling  
+4. Performance visualization and feature explainability  
+
+These insights support early identification of high-risk individuals, contributing to improved preventative healthcare decisions.
